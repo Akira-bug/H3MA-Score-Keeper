@@ -9,5 +9,6 @@ H3MA-Score-Keeper (the '3' representing the use of three virtual machines) aims 
 Use in scoring official tournaments or casual sparring within a club!
 
 Diagram of the architecture of the application.
-![alt text](H3MA-Score-Keeper.drawio.png)
+
+![alt text](assets/H3MA-Score-Keeper.drawio.png)
 
