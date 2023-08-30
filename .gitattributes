@@ -1,0 +1,4 @@
+* text=auto
+
+setup-database.sql text eol=lf
+test-website.conf text eol=lf
