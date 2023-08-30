@@ -7,7 +7,7 @@ const app = express()
 
 //establish a connection with the locally hosted database
 const db = mysql.createConnection({
-    host:"localhost",
+    host:"192.168.56.12",
     user:"root",
     password: "",
     database: "test",
