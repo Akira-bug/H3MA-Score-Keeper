@@ -22,7 +22,7 @@ const Update = () => {
     const handleClick = async e =>{
         e.preventDefault()
         try {
-            await axios.put("http://localhost:8080/fencers/" + fencerId, fencer)
+            await axios.put("http://192.168.56.11:8080/fencers/" + fencerId, fencer)
             navigate("/")
         } catch(err) {
             console.log(err)

@@ -9,7 +9,7 @@ const Fencers = () => {
     useEffect(()=>{
         const fetchAllFencers = async ()=>{
             try{
-                const res = await axios.get("http://localhost:8080/fencers")
+                const res = await axios.get("http://192.168.56.11:8080/fencers")
                 setFencers(res.data);
             }catch(err){
                 console.log(err)
@@ -20,20 +20,21 @@ const Fencers = () => {
 
     const handleDelete = async (id)=>{
         try {
-            await axios.delete("http://localhost:8080/fencers/"+id)
+            await axios.delete("http://192.168.56.11:8080/fencers/"+id)
             window.location.reload()
         } catch (err) {
             console.log(err)
         }
     }
 
-    return(
+    return (
         <div>
             <h1>Fencers</h1>
             <div className="fencers" >
-                {fencers.map(fencer=>(
+                {fencers.map( (fencer)=>(
                     <div className="fencer" key={fencer.id}>
                         <h4>{fencer.score}</h4>
+                        <hr></hr>
                         <h2>{fencer.name}</h2> 
                         <p>{fencer.club}</p>      
                         <p>{fencer.weapon}</p>   

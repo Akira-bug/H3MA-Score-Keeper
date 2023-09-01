@@ -8,9 +8,9 @@ const app = express()
 //establish a connection with the locally hosted database
 const db = mysql.createConnection({
     host:"192.168.56.12",
-    user:"root",
-    password: "",
-    database: "test",
+    user:"webuser",
+    password: "insecure_db_pw",
+    database: "HEMA_SK",
 })
 
 //If there is an authentication problem:
@@ -21,7 +21,7 @@ app.use(cors())
 
 //function to test that a connection is successful
 app.get("/", (req,res)=>{
-    res.json("hello this is the backend")
+    res.json("hello this is the backend!!!")
 })
 
 //functions for retrieving all fencers from the database
@@ -78,6 +78,6 @@ app.put("/fencers/:id", (req,res)=>{
     })
 })
 
-app.listen(8080, ()=>{
-    console.log("Connected to backend!")
-})
+app.listen(8080, () => {
+    console.log("Connected to backend on port 8080!")
+});
