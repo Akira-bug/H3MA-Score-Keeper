@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 const Fencers = () => {
     const [fencers,setFencers] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const fetchAllFencers = async ()=>{
@@ -27,16 +29,19 @@ const Fencers = () => {
         }
     }
 
+    const clickAddFencer = async e =>{
+        e.preventDefault()
+        try {
+            navigate("/add")
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div>
-            {/* <div className="header">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Matches</a></li>
-                    <li><a href="/">Fencers</a></li>
-                </ul>
-            </div> */}
-            <h1>Fencers.</h1>
+            <h1>Fencers</h1>
+            <hr />
             <div className="fencers" >
                 {fencers.map( (fencer)=>(
                     <div className="fencer" key={fencer.id}>
@@ -49,7 +54,7 @@ const Fencers = () => {
                     </div>
                 ))}
             </div>
-            <button><Link to="/add">Add Fencer</Link></button>
+            <button className="formButton AddFencer"  onClick={clickAddFencer}>Add Fencer</button>
         </div>
     )
 }

@@ -4,10 +4,10 @@ import axios from "axios";
 
 const Add = () => {
     const [fencer, setFencer] = useState({
+        score:"",
         name:"",
         club:"",
         weapon:"",
-
     });
 
     const navigate = useNavigate()
@@ -26,6 +26,15 @@ const Add = () => {
         }
     }
 
+    const clickHome = async e =>{
+        e.preventDefault()
+        try {
+            navigate("/")
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return(
         <div className="form">
             <h1>Add New Fencer</h1>
@@ -35,6 +44,7 @@ const Add = () => {
             <input type="text" placeholder="weapon" onChange={handleChange} name="weapon"/>
             
             <button className="formButton" onClick={handleClick}>Add</button>
+            <button className="cancelButton" onClick={clickHome}>Cancel</button>
 
         </div>
     );
