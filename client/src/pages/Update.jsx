@@ -27,6 +27,15 @@ const Update = () => {
         } catch(err) {
             console.log(err)
         }
+    }   
+
+    const clickHome = async e =>{
+        e.preventDefault()
+        try {
+            navigate("/")
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     return(
@@ -38,6 +47,7 @@ const Update = () => {
             <input type="text" placeholder="weapon" onChange={handleChange} name="weapon"/>
             
             <button className="formButton" onClick={handleClick}>Update</button>
+            <button className="cancelButton" onClick={clickHome}>Cancel</button>
 
         </div>
     );

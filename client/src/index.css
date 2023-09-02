@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navlist {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 10rem;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navlist-item {
+  float: left;
+}
+
+.navlist-item-link {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: orange;
+}
