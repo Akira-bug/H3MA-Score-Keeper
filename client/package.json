@@ -16,6 +16,10 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
+
+  "browser": {
+    "assert": false
+  },
   "scripts": {
     "start-js": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "backend-start": "DISABLE_ESLINT_PLUGIN=true nodemon -L /vagrant/backend/index.js",

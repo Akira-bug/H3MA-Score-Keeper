@@ -21,11 +21,14 @@ const Update = () => {
 
     const handleClick = async e =>{
         e.preventDefault()
-        try {
-            await axios.put("http://192.168.56.11:8080/fencers/" + fencerId, fencer)
-            navigate("/")
-        } catch(err) {
-            console.log(err)
+        const confirmation = window.confirm('Are you sure you update these details?');
+        if (confirmation) {
+            try {
+                await axios.put("http://192.168.56.11:8080/fencers/" + fencerId, fencer)
+                navigate("/")
+            } catch(err) {
+                console.log(err)
+            }
         }
     }   
 
