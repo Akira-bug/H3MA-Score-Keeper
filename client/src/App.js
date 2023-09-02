@@ -8,8 +8,9 @@ import Add from "./pages/Add";
 import Update from "./pages/Update";
 import Scoreboard from "./pages/ScoreBoard";
 import MatchTracker from "./pages/MatchTracker";
-
 import "./style.css"
+import ViewMatches from "./pages/ViewMatches";
+import UpdateMatch from "./pages/UpdateMatch";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/fencers" element={<Fencers/>}/>
           <Route path="/add" element={<Add/>}/>
           <Route path="/update/:id" element={<Update/>}/>
-
+          <Route path="/viewmatches" element={<ViewMatches/>}/>
+          <Route path="/updatematch/:id" element={<UpdateMatch/>}/>
         </Routes>
       </BrowserRouter>
     </div>

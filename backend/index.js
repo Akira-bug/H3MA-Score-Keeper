@@ -1,6 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import cors from "cors"
+import { exec } from "child_process"
 
 //initializes our node express application!
 const app = express()
@@ -31,6 +32,12 @@ app.get("/", (req,res)=>{
     res.json("Hello! This is the backend.")
 })
 
+//Sets the port for the Node server API to 8080.
+app.listen(8080, () => {
+    console.log("Connected to backend on port 8080!")
+});
+
+///////////////////////////////////////FENCERS RELATED 
 //functions for retrieving all fencers from the database
 app.get("/fencers", (req,res)=>{
     const q = "SELECT DISTINCT * FROM fencers"
@@ -84,7 +91,123 @@ app.put("/fencers/:id", (req,res)=>{
     })
 })
 
-//Sets the port for the Node server API to 8080.
-app.listen(8080, () => {
-    console.log("Connected to backend on port 8080!")
+///////////////////////////////////////MATCHES RELATED 
+// Route to add match data to the database
+app.post("/matches", (req, res) => {
+    const q = "INSERT INTO matches (`fighter1`, `fighter2`, `weapon1`, `weapon2`, `score1`, `score2`, `victor`, `doubles`, `exchanges`, `duration`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [
+        req.body.fighter1,
+        req.body.fighter2,
+        req.body.weapon1,
+        req.body.weapon2,
+        req.body.score1,
+        req.body.score2,
+        req.body.victor,
+        req.body.doubles,
+        req.body.exchanges,
+        req.body.duration
+    ];
+  
+    db.query(q, values, (err, data) => {
+        if (err) return res.json(err);
+        
+        // Assuming you want to return the inserted match ID
+        return res.json({ message: "Match data has been added successfully.", matchId: data.insertId });
+    });
 });
+
+app.get("/matches", (req,res)=>{
+    const q = "SELECT * FROM matches"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/matches/:id", (req,res)=>{
+    const q = "SELECT * FROM matches WHERE `id` = ?"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+app.put("/matches/:id", (req, res) => {
+    const matchId = req.params.id;
+    const {
+        fighter1,
+        fighter2,
+        score1,
+        score2,
+        weapon1,
+        weapon2,
+        victor,
+        doubles,
+        exchanges,
+        duration
+    } = req.body;
+  
+    const q = `
+      UPDATE matches
+      SET
+        fighter1 = ?,
+        fighter2 = ?,
+        score1 = ?,
+        score2 = ?,
+        weapon1 = ?,
+        weapon2 = ?,
+        victor = ?,
+        doubles = ?,
+        exchanges = ?,
+        duration = ?
+      WHERE
+        id = ?
+    `;
+  
+    const values = [
+      fighter1,
+      fighter2,
+      score1,
+      score2,
+      weapon1,
+      weapon2,
+      victor,
+      doubles,
+      exchanges,
+      duration,
+      matchId
+    ];
+  
+    db.query(q, values, (err, data) => {
+      if (err) return res.json(err);
+  
+      return res.json({ message: "Match data has been updated successfully." });
+    });
+  });
+
+
+app.delete("/matches/:id", (req,res)=>{
+    const matchId = req.params.id;
+    const q = "DELETE FROM matches WHERE id = ?"
+
+    db.query(q, [matchId], (err, data)=>{
+        if (err) return res.json(err);
+        return res.json("Match was deleted successfully.");
+    })
+})
+
+///////////////////////////////////////BACKUP RELATED 
+app.post('/backup', (req, res) => {
+    // Execute the Bash script
+    const scriptPath = '/vagrant/export-db.sh';
+    exec(scriptPath, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing script: ${error}`);
+        res.status(500).json({ error: 'An error occurred during backup/restore.' });
+        return;
+      }
+      console.log(`Script output: ${stdout}`);
+      console.error(`Script errors: ${stderr}`);
+      res.status(200).json({ message: 'Backup/restore completed successfully.' });
+    });
+  });
+

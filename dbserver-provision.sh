@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get update
+sudo apt-get update
         
 export MYSQL_PWD='insecure_mysqlroot_pw'
 echo "mysql-server mysql-server/root_password password $MYSQL_PWD" | debconf-set-selections
@@ -12,6 +12,9 @@ echo "ALTER USER 'webuser'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'insec
 
 export MYSQL_PWD='insecure_db_pw'
 cat /vagrant/setup-database.sql | mysql -u webuser HEMA_SK
+
+#Comment line below out if you dont want to import database
+sudo /vagrant/import-db.sh
 
 sed -i'' -e '/bind-address/s/127.0.0.1/0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 service mysql restart

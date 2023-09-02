@@ -7,5 +7,17 @@ CREATE TABLE fencers (
   PRIMARY KEY (id)
 );
 
-INSERT INTO fencers (name, club, weapon, score) VALUES ('test man', 'test club', 'test weapon', 10);
-INSERT INTO fencers (name, club, weapon, score) VALUES ('John Wick', 'Unknown', 'Pencil', 9999);
+CREATE TABLE matches (
+  id int NOT NULL AUTO_INCREMENT,
+  fighter1 varchar(60) NOT NULL,
+  fighter2 varchar(60) NOT NULL,
+  score1 int NOT NULL DEFAULT '0',
+  score2 int NOT NULL DEFAULT '0',
+  weapon1 varchar(60) NOT NULL,
+  weapon2 varchar(60) NOT NULL,
+  victor varchar(60) NOT NULL,
+  doubles int NOT NULL DEFAULT '0',
+  exchanges int NOT NULL DEFAULT '0',
+  duration int NOT NULL DEFAULT '0',
+  PRIMARY KEY (id)
+);

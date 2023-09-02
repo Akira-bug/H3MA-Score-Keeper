@@ -4,7 +4,7 @@ echo "*    Installing dependencies...    *"
 echo "************************************"
 # Install "some" dependencies.
 sudo apt-get update
-sudo apt-get install -y ca-certificates curl gnupg build-essential forever
+sudo apt-get install -y ca-certificates curl gnupg build-essential mysql-client-core-8.0
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 NODE_MAJOR=20

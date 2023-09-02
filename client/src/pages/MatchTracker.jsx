@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import FighterSelection from './FighterSelection';
+import axios from 'axios';
+
 
 function MatchTracker() {
 
     //State to manage fighters
-    const [fighter1, setFighter1] = useState(null);
-    const [fighter2, setFighter2] = useState(null);
+    const [matchFighter1, setFighter1] = useState(null);
+    const [matchFighter2, setFighter2] = useState(null);
     const [isFighterSelectionOpen, setIsFighterSelectionOpen] = useState(false);
 
     //State to manage the score
-    const [score1, setScore1] = useState(0);
-    const [score2, setScore2] = useState(0);
-    const [doublesHits, setDoubleHits] = useState(0);
+    const [matchScore1, setScore1] = useState(0);
+    const [matchScore2, setScore2] = useState(0);
+    const [matchDoublesHits, setDoubleHits] = useState(0);
     const [exchangeNum, setExchangeNum] = useState(0);
 
     // State to manage the timer
@@ -63,18 +65,18 @@ function MatchTracker() {
 
     // Function to update scores
     const increaseScore = (fighter) => {
-        if (fighter === fighter1) {
+        if (fighter === matchFighter1) {
         setScore1((prevScore) => prevScore + 1);
-        } else if (fighter === fighter2) {
+        } else if (fighter === matchFighter2) {
         setScore2((prevScore) => prevScore + 1);
         }
     };
 
     // Function to update scores
     const decreaseScore = (fighter) => {
-        if (fighter === fighter1) {
+        if (fighter === matchFighter1) {
         setScore1((prevScore) => prevScore - 1);
-        } else if (fighter === fighter2) {
+        } else if (fighter === matchFighter2) {
         setScore2((prevScore) => prevScore - 1);
         }
     };
@@ -99,29 +101,64 @@ function MatchTracker() {
       // Function to confirm match cancellation
   const cancelMatch = () => {
     const confirmation = window.confirm('Are you sure you want to cancel the match?');
-    if (confirmation) {
-      // Perform the cancellation action
-      setFighter1(null);
-      setFighter2(null);
+    if (confirmation) { 
+        setScore1(0)
+        setScore2(0)
+        setTimer(0);
+        setIsRunning(false);
+        setFighter1(null);
+        setFighter2(null);
+        setExchangeNum(0);
+        setDoubleHits(0);
     }
   };
+
+
+  const handleConclusion = async () =>{
+    let winner = "";
+    if (matchScore1 > matchScore2){
+        winner = matchFighter1.name;    
+    }else if (matchScore1 < matchScore2){
+        winner = matchFighter2.name;  
+    }else{
+        winner = "Draw";
+    }
+
+    const matchData = ({
+        fighter1: matchFighter1.name,
+        fighter2: matchFighter2.name,
+        weapon1: matchFighter1.weapon,
+        weapon2: matchFighter2.weapon,
+        score1: matchScore1,
+        score2: matchScore2,
+        victor: winner,
+        doubles: matchDoublesHits,
+        exchanges: exchangeNum,
+        duration: timer
+    })
+
+    try {
+        await axios.post("http://192.168.56.11:8080/matches", matchData)
+    } catch(err) {
+        console.log(err)
+    }
+}
 
   // Function to confirm match conclusion
   const concludeMatch = () => {
-    const confirmation = window.confirm('Are you sure you want to conclude the match?\nConcluding the match will result in the match data being sent to the database.');
-    if (confirmation) {
-      // Perform the conclusion action
-      // You can add logic here to save match results or take other actions
-      // For now, let's reset the selected fighters and timer
-      setFighter1(null);
-      setFighter2(null);
-      setScore1(0)
-      setScore2(0)
-      setTimer(0);
-      setIsRunning(false);
-    }
+        const confirmation = window.confirm('Are you sure you want to conclude the match?\nConcluding the match will result in the match data being sent to the database.');
+        if (confirmation) {
+            handleConclusion();
+            setFighter1(null);
+            setFighter2(null);
+            setScore1(0)
+            setScore2(0)
+            setTimer(0);
+            setIsRunning(false);
+            setExchangeNum(0);
+            setDoubleHits(0);
+        }
   };
-
 
 
     // Render the match tracker UI
@@ -131,14 +168,14 @@ function MatchTracker() {
             <hr />
             {/* ----------- SELECTION --------- */}
             <div className='matchOptions'>
-                {!fighter1 && !fighter2 ? (
+                {!matchFighter1 && !matchFighter1 ? (
                 <button className="concludeButton" onClick={() => setIsFighterSelectionOpen(true)}>
                     Select Fighters
                 </button>
                 ) : (
                 <div>
-                    <p>Fighter A: {fighter1 && fighter1.name}</p>
-                    <p>Fighter B: {fighter2 && fighter2.name}</p>
+                    <p>Fighter A: {matchFighter1 && matchFighter1.name}</p>
+                    <p>Fighter B: {matchFighter2 && matchFighter2.name}</p>
                 </div>
                 )}
             </div>
@@ -152,21 +189,21 @@ function MatchTracker() {
             <hr />
             <div className='scores'>
                 <div className='score blue'>
-                    <p className='number'>{score1}</p>
-                    <p className='names'>{fighter1 && fighter1.name}</p> 
+                    <p className='number'>{matchScore1}</p>
+                    <p className='names'>{matchFighter1 && matchFighter1.name}</p> 
                 </div>
 
                 <div className='score red'>
-                    <p className='number'>{score2}</p>
-                    <p className='names'>{fighter2 && fighter2.name}</p> 
+                    <p className='number'>{matchScore2}</p>
+                    <p className='names'>{matchFighter2 && matchFighter2.name}</p> 
                 </div>
                 
             </div>
             <div className='scores'>
-                <button className='blue scoreButton' onClick={() => increaseScore(fighter1)}>+1</button>
-                <button className='blue scoreButton' onClick={() => decreaseScore(fighter1)}>-1</button>
-                <button className='red scoreButton' onClick={() => increaseScore(fighter2)}>+1</button>
-                <button className='red scoreButton' onClick={() => decreaseScore(fighter2)}>-1</button>
+                <button className='blue scoreButton' onClick={() => increaseScore(matchFighter1)}>+1</button>
+                <button className='blue scoreButton' onClick={() => decreaseScore(matchFighter1)}>-1</button>
+                <button className='red scoreButton' onClick={() => increaseScore(matchFighter2)}>+1</button>
+                <button className='red scoreButton' onClick={() => decreaseScore(matchFighter2)}>-1</button>
             </div>
 
             {/* ----------- TIMER --------- */}
@@ -181,7 +218,7 @@ function MatchTracker() {
             </div>
             <div className='matchOptions info'>
                 <p>|&emsp;Exchange:   {exchangeNum}&emsp;|</p>
-                <p>|&emsp;Doubles:   {doublesHits}&emsp;|</p>
+                <p>|&emsp;Doubles:   {matchDoublesHits}&emsp;|</p>
             </div>
             <div className='matchOptions'>
                 <button className='concludeButton' onClick={() => iExchange()}>+1 Exchange</button>
@@ -192,7 +229,6 @@ function MatchTracker() {
 
             <hr />
             <div className='matchOptions'>
-                
                 <button className='concludeButton' onClick={concludeMatch}>Conclude Match</button>
                 <button className='cancelButton' onClick={cancelMatch}>Cancel Match</button>
             </div>
