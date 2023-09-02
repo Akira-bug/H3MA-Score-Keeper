@@ -17,7 +17,7 @@ const db = mysql.createConnection({
 
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected to database!");
   });
 
 //If there is an authentication problem:
@@ -28,7 +28,7 @@ app.use(cors())
 
 //function to test that a connection is successful
 app.get("/", (req,res)=>{
-    res.json("hello this is the backend!")
+    res.json("Hello! This is the backend.")
 })
 
 //functions for retrieving all fencers from the database
@@ -36,7 +36,6 @@ app.get("/fencers", (req,res)=>{
     const q = "SELECT * FROM fencers"
     db.query(q,(err,data)=>{
         if(err) return res.json(err)
-        console.log(data)
         return res.json(data)
     })
 })
@@ -86,6 +85,7 @@ app.put("/fencers/:id", (req,res)=>{
     })
 })
 
+//Sets the port for the Node server API to 8080.
 app.listen(8080, () => {
     console.log("Connected to backend on port 8080!")
 });

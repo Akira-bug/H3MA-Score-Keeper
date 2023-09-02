@@ -29,10 +29,14 @@ const Fencers = () => {
 
     return (
         <div>
-            <div class="">
-        
-            </div>
-            <h1>Fencers!!</h1>
+            {/* <div className="header">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Matches</a></li>
+                    <li><a href="/">Fencers</a></li>
+                </ul>
+            </div> */}
+            <h1>Fencers.</h1>
             <div className="fencers" >
                 {fencers.map( (fencer)=>(
                     <div className="fencer" key={fencer.id}>
