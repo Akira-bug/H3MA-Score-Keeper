@@ -41,6 +41,8 @@ function Scoreboard() {
               <tr>
                 <th>Rank</th>
                 <th>Name</th>
+                <th>Weapon</th>
+                <th>Club</th>
                 <th>Score</th>
               </tr>
             </thead>
@@ -49,6 +51,8 @@ function Scoreboard() {
                 <tr key={fencer.id}>
                   <td>{fencer.rank}</td>
                   <td>{fencer.name}</td>
+                  <td>{fencer.weapon}</td>
+                  <td>{fencer.club}</td>
                   <td>{fencer.score}</td>
                 </tr>
               ))}

@@ -33,7 +33,7 @@ app.get("/", (req,res)=>{
 
 //functions for retrieving all fencers from the database
 app.get("/fencers", (req,res)=>{
-    const q = "SELECT * FROM fencers"
+    const q = "SELECT DISTINCT * FROM fencers"
     db.query(q,(err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
@@ -42,9 +42,8 @@ app.get("/fencers", (req,res)=>{
 
 //functions for adding a new fencer into the database
 app.post("/fencers", (req,res)=>{
-    const q = "INSERT INTO fencers (`score`,`name`,`club`,`weapon`) VALUES (?)"
+    const q = "INSERT IGNORE INTO fencers (`name`,`club`,`weapon`) VALUES (?)"
     const values = [
-        req.body.score,
         req.body.name,
         req.body.club,
         req.body.weapon

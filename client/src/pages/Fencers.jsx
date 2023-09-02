@@ -21,11 +21,14 @@ const Fencers = () => {
     },[])
 
     const handleDelete = async (id)=>{
-        try {
-            await axios.delete("http://192.168.56.11:8080/fencers/"+id)
-            window.location.reload()
-        } catch (err) {
-            console.log(err)
+        const confirmation = window.confirm('Are you sure you want to delete this fencer?');
+        if (confirmation) {
+            try {
+                await axios.delete("http://192.168.56.11:8080/fencers/"+id)
+                window.location.reload()
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
@@ -42,6 +45,8 @@ const Fencers = () => {
         <div>
             <h1>Fencers</h1>
             <hr />
+            <button className="formButton AddFencer"  onClick={clickAddFencer}>Add Fencer</button>
+            <hr />
             <div className="fencers" >
                 {fencers.map( (fencer)=>(
                     <div className="fencer" key={fencer.id}>
@@ -54,7 +59,6 @@ const Fencers = () => {
                     </div>
                 ))}
             </div>
-            <button className="formButton AddFencer"  onClick={clickAddFencer}>Add Fencer</button>
         </div>
     )
 }

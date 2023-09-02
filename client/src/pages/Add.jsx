@@ -37,8 +37,7 @@ const Add = () => {
 
     return(
         <div className="form">
-            <h1>Add New Fencer</h1>
-            <input type="number" placeholder="score" onChange={handleChange} name="score"/>
+            <h1>Add A New Fencer And Weapon</h1>
             <input type="text" placeholder="name" onChange={handleChange} name="name"/>
             <input type="text" placeholder="club" onChange={handleChange} name="club"/>
             <input type="text" placeholder="weapon" onChange={handleChange} name="weapon"/>

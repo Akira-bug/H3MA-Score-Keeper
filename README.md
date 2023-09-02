@@ -37,9 +37,9 @@ vagrant up
 
 
 
-Diagram of the architecture of the application.
+### Diagram of the architecture of the application.
 
 ![alt text](assets/H3MA-Score-Keeper.drawio.png)
 
 Initial set up of this project follows the development process from the COSC349 [vagrant-multivm](https://altitude.otago.ac.nz/cosc349/vagrant-multivm) repository on GitLab by David Eyers.
-
+ChatGPT-3.5 used to make parts of this project.
