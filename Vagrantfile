@@ -14,6 +14,12 @@ Vagrant.configure("2") do |config|
         dbserver.vm.provision "shell", path: "dbserver-provision.sh"     
     end
 
+    # Initialize and provision the analiser VM
+    config.vm.define "analyser" do |analyser|
+        analyser.vm.hostname = "analyser"
+        analyser.vm.network "private_network", ip: "192.168.56.13"
+        analyser.vm.provision "shell", path: "analyser-provision.sh"
+    end
     # Initialize and provision the Node server and React-app hosting VM
     config.vm.define "react-app" do |app|
         app.vm.hostname = "react-app"
@@ -21,4 +27,5 @@ Vagrant.configure("2") do |config|
         app.vm.network "private_network", ip: "192.168.56.11"
         app.vm.provision "shell", path: "react-app-provision.sh"
     end
+
 end
