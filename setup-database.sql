@@ -8,4 +8,4 @@ CREATE TABLE fencers (
 );
 
 INSERT INTO fencers (name, club, weapon, score) VALUES ('test man', 'test club', 'test weapon', 10);
-INSERT INTO fencers (name, club, weapon, score) VALUES ('John Wick', 'Unknown', 'Pencil', 5);
+INSERT INTO fencers (name, club, weapon, score) VALUES ('John Wick', 'Unknown', 'Pencil', 9999);

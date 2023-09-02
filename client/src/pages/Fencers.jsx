@@ -29,12 +29,14 @@ const Fencers = () => {
 
     return (
         <div>
-            <h1>Fencers</h1>
+            <div class="">
+        
+            </div>
+            <h1>Fencers!!</h1>
             <div className="fencers" >
                 {fencers.map( (fencer)=>(
                     <div className="fencer" key={fencer.id}>
                         <h4>{fencer.score}</h4>
-                        <hr></hr>
                         <h2>{fencer.name}</h2> 
                         <p>{fencer.club}</p>      
                         <p>{fencer.weapon}</p>   

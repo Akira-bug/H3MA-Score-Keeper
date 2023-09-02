@@ -8,10 +8,17 @@ const app = express()
 //establish a connection with the locally hosted database
 const db = mysql.createConnection({
     host:"192.168.56.12",
+    port:"3306",
     user:"webuser",
     password: "insecure_db_pw",
     database: "HEMA_SK",
+    authPlugin: 'caching_sha2_password' // Specify the authentication plugin
 })
+
+db.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
 
 //If there is an authentication problem:
 // ALTER USER 'root'@'localhost; IDENTIFIED WITH mysql_native_password BY 'password';
@@ -21,7 +28,7 @@ app.use(cors())
 
 //function to test that a connection is successful
 app.get("/", (req,res)=>{
-    res.json("hello this is the backend!!!")
+    res.json("hello this is the backend!")
 })
 
 //functions for retrieving all fencers from the database
@@ -29,6 +36,7 @@ app.get("/fencers", (req,res)=>{
     const q = "SELECT * FROM fencers"
     db.query(q,(err,data)=>{
         if(err) return res.json(err)
+        console.log(data)
         return res.json(data)
     })
 })

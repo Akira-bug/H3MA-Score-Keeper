@@ -17,8 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start-js": "react-scripts start",
-    "backend-start": "nodemon /vagrant/backend/index.js",
+    "start-js": "DISABLE_ESLINT_PLUGIN=true react-scripts start &",
+    "backend-start": "DISABLE_ESLINT_PLUGIN=true nodemon -L /vagrant/backend/index.js &",
     "start": "concurrently \"npm run backend-start\" \"npm run start-js\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
