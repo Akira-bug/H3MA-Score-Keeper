@@ -198,7 +198,7 @@ app.delete("/matches/:id", (req,res)=>{
 ///////////////////////////////////////BACKUP RELATED 
 app.post('/backup', (req, res) => {
     // Execute the Bash script
-    const scriptPath = '/vagrant/export-db.sh';
+    const scriptPath = 'sudo /vagrant/export-db.sh';
     exec(scriptPath, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error executing script: ${error}`);
@@ -207,7 +207,7 @@ app.post('/backup', (req, res) => {
       }
       console.log(`Script output: ${stdout}`);
       console.error(`Script errors: ${stderr}`);
-      res.status(200).json({ message: 'Backup/restore completed successfully.' });
+      res.status(200).json({ message: 'Backup completed successfully.' });
     });
   });
 
