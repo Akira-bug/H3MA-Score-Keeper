@@ -38,7 +38,7 @@ CREATE TABLE `fencers` (
 
 LOCK TABLES `fencers` WRITE;
 /*!40000 ALTER TABLE `fencers` DISABLE KEYS */;
-INSERT INTO `fencers` VALUES (5,'Luffy','Strawhats','Fist',1499),(8,'Anna','Dunedin','Hook Swords',1234),(21,'Luke','Dunedin','Longsword',125),(24,'Cat','Meow','Claws',0),(25,'John Wick','None','Pencil',0),(27,'Froggy','Small Pond','Katana',0);
+INSERT INTO `fencers` VALUES (5,'Luffy','Strawhats','Fist',33),(8,'Anna','Dunedin','Hook Swords',8),(21,'Luke','Dunedin','Longsword',9),(24,'Cat','Meow','Claws',5),(25,'John Wick','None','Pencil',14),(27,'Froggy','Small Pond','Katana',5);
 /*!40000 ALTER TABLE `fencers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `matches` (
   `exchanges` int NOT NULL DEFAULT '0',
   `duration` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `matches` (
 
 LOCK TABLES `matches` WRITE;
 /*!40000 ALTER TABLE `matches` DISABLE KEYS */;
-INSERT INTO `matches` VALUES (2,'Luke','Luffy',7,12,'Longsword','Fist','Luffy',6,4,4),(3,'Cat','John Wick',0,0,'Claws','Pencil','Draw',0,0,0),(4,'John Wick','Luffy',7,11,'Pencil','Fist','Luffy',3,10,5),(5,'Frog','Cat',6,5,'Katana','Claws','Frog',2,7,0);
+INSERT INTO `matches` VALUES (2,'Luke','Luffy',7,12,'Longsword','Fist','Luffy',6,4,4),(3,'Cat','John Wick',0,0,'Claws','Pencil','Draw',0,0,0),(4,'John Wick','Luffy',7,11,'Pencil','Fist','Luffy',3,10,5),(5,'Frog','Cat',6,5,'Katana','Claws','Frog',2,7,0),(6,'Luffy','Froggy',6,5,'Fist','Katana','Luffy',2,5,5),(7,'Anna','John Wick',8,7,'Hook Swords','Pencil','Anna',3,8,4),(8,'Luffy','Luke',4,2,'Fist','Longsword','Luffy',0,3,1);
 /*!40000 ALTER TABLE `matches` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -84,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-02 17:22:21
+-- Dump completed on 2023-09-03 11:31:28

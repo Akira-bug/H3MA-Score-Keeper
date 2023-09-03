@@ -50,8 +50,9 @@ def compile_fighter_stats(fighter_name):
             total_matches = score_result[0]
             total_score = score_result[1]
             total_wins = wins_result[0]
-            average_score = total_score/total_wins
-            win_rate = total_wins/total_matches
+            if total_matches != 0:
+                average_score = total_score/total_matches
+                win_rate = total_wins/total_matches
 
             print("**************************************");
             print(f"Fighter: {fighter_name}")
