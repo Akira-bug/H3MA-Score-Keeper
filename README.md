@@ -1,18 +1,24 @@
 # H3MA-Score-Keeper
-An application to score and track HEMA fights and statistics using 3 virtual machines.
-Assignment at the University of Otago - COSC349 Cloud Computing - Assignment 1.
+An application designed to score and track HEMA fights and statistics using 3 virtual machines.
 
-HEMA (Historical European Martial Arts) is a thrilling sport with competitors, clubs and collections of enthusiasts all across the world. Practitioners of the sport most often face off in one-on-one duels, wielding various historical weapons such as the longsword, rapier or sabre. 
+Project made to satisfy an assignment at the University of Otago - COSC349 Cloud Computing Architecture paper.
+<p align="center">
+    <img src="assets/HEMA-Header-Image.jpg" 
+        alt="Image showing two fully geared HEMA fighters mid battle with longswords"
+        width="350" border="1px solid black"/>
+</p>
+HEMA (Historical European Martial Arts) is a thrilling sport with competitors, clubs and collections of enthusiasts all across the world. Practitioners of the sport most often face off in one-on-one duels, wielding various historical weapons such as the longsword, rapier or sabre.
 
-H3MA-Score-Keeper (the '3' representing the use of three virtual machines) aims to provide management and scoring of fighter analytics in an easy and secure way. 
+H3MA-Score-Keeper (the '3' representing the use of three virtual machines) aims to provide management and scoring of fights in an easy and secure way. 
 
-Use in scoring official tournaments or casual sparring within a club!
+If you use this for in any way (scoring official tournaments or casual sparring within a club), let me know how I can improve the software by submitting an issue or feature request!
 
 <hr>
-# Prerequisites:
-In order to run this application you must install Vagrant and Virtual box.
 
-# How to run the application:
+## Prerequisites:
+In order to run this application you must install Vagrant and Virtual box to provision and run the virtual machines's that power the application.
+
+## How to run the application:
 1. Download or clone the repository:
 ```
 git clone https://github.com/Akira-bug/H3MA-Score-Keeper.git
@@ -33,7 +39,9 @@ vagrant up
 192.168.56.11:3000
 ```
 
-# How to shut down the application:
+<hr>
+
+## How to shut down the application:
 Ensure you have exported the database if you plan on using the stats you have collected.
 You can do this simply by navigating to the "View Matches" page, then clicking the "Backup data" button.
 1. Exit the vagrant process using `ctrl + c`.  
@@ -48,12 +56,19 @@ sudo killall node
 4. Logout of the vm using `logout`.
 5. Use `vagrant destroy` and agree to destroy the VMs.
 
-You must use steps or manually end the processes using something like task manager.
-The main reason is that the Node server and React application are started as background processes, that don't end when using `ctrl + c` from the host vagrant shell.
+You must use these steps or manually end the processes using something like task manager and ending any Ruby or Vagrant processes.
+This is becuase the Node server and React application are started as background processes, that don't end when using `ctrl + c` from the host shell running vagrant.
 
-### Diagram of the original architecture of the application.
+<hr>
 
-![alt text](assets/H3MA-Score-Keeper.drawio.png)
+#### Diagram of application's architecture.
 
+<p align="center">
+    <img src="assets/H3MA-Score-Keeper.drawio.png" 
+        alt="Sketch of the overall layout of the application"
+        width="400" />
+</p>
+
+<hr>
 Initial set up of this project follows the development process from the COSC349 [vagrant-multivm](https://altitude.otago.ac.nz/cosc349/vagrant-multivm) repository on GitLab by David Eyers.
 ChatGPT-3.5 used to make parts of this project.
