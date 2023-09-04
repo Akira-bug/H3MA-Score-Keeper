@@ -44,17 +44,31 @@ vagrant up
 
 <hr>
 
-## Update the scores and scoreboard:
+## Update the scores and scoreboard, get fencer analysis:
 I have yet to implment a functional method for getting this script to automatically run on the associated VM, as such you can run it manually by:
-1. Access the "analyser" virtual machine:
+
+Access the "analyser" virtual machine:
 ```
 vagrant ssh analyser
 ```
-2. Paste the following command:
+
+You can:
+
+1. Get the analysis on a single fencer, run this command:
 ```
-python3 /vagrant/analysis/analyseALL.py
+python3 /vagrant/analysis/analysis.py
 ```
-the script should run and you can type `logout` to end the ssh connection.
+- Enter the name when prompted to view the stats of that fighter.
+
+and/or...
+
+2. Update the scoreboard and view analaysis on all fencers, run the following command:
+```
+python3 /vagrant/analysis/analyseAll.py
+```
+- The script should run and print all the stats!
+
+Once finished, you can type `logout` to end the ssh connection.
 
 <hr>
 
