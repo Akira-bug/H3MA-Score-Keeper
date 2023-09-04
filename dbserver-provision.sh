@@ -16,7 +16,7 @@ cat /vagrant/setup-database.sql | mysql -u webuser HEMA_SK
 sudo dos2unix /vagrant/import-db.sh
 sudo dos2unix /vagrant/export-db.sh
 #Comment line below out if you dont want to import database
-sudo /vagrant/import-db.sh
+sudo bash /vagrant/import-db.sh
 
 sed -i'' -e '/bind-address/s/127.0.0.1/0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 service mysql restart

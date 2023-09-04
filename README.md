@@ -19,6 +19,9 @@ If you use this for in any way (scoring official tournaments or casual sparring 
 In order to run this application you must install Vagrant and Virtual box to provision and run the virtual machines's that power the application.
 
 ## How to run the application:
+To get started, open VirtualBox and the command prompt, or other terminal.
+If VirtualBox is not open, provisioning the VMs will often timout, and the application may not launch correctly.
+
 1. Download or clone the repository:
 ```
 git clone https://github.com/Akira-bug/H3MA-Score-Keeper.git
@@ -38,6 +41,20 @@ vagrant up
 ```
 192.168.56.11:3000
 ```
+
+<hr>
+
+## Update the scores and scoreboard:
+I have yet to implment a functional method for getting this script to automatically run on the associated VM, as such you can run it manually by:
+1. Access the "analyser" virtual machine:
+```
+vagrant ssh analyser
+```
+2. Paste the following command:
+```
+python3 /vagrant/analysis/analyseALL.py
+```
+the script should run and you can type `logout` to end the ssh connection.
 
 <hr>
 
@@ -66,7 +83,7 @@ This is becuase the Node server and React application are started as background 
 <p align="center">
     <img src="assets/H3MA-Score-Keeper.drawio.png" 
         alt="Sketch of the overall layout of the application"
-        width="400" />
+        width="600" />
 </p>
 
 <hr>
