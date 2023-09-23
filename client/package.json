@@ -21,9 +21,7 @@
     "assert": false
   },
   "scripts": {
-    "start-js": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "backend-start": "DISABLE_ESLINT_PLUGIN=true nodemon -L /vagrant/backend/index.js",
-    "start": "concurrently  \"npm run start-js\" \"npm run backend-start\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
