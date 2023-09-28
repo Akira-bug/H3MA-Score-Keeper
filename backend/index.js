@@ -5,15 +5,15 @@ import { exec } from "child_process"
 
 //initializes our node express application!
 const app = express()
+const db_config = require('./config.json');
 
 //establish a connection with the locally hosted database
 const db = mysql.createConnection({
-    host:"192.168.56.12",
-    port:"3306",
-    user:"webuser",
-    password: "insecure_db_pw",
-    database: "HEMA_SK",
-    authPlugin: 'caching_sha2_password' // Specify the authentication plugin
+    host: db_config.DB_HOST,
+    user: db_config.DB_USER,
+    password: db_config.DB_PASSWORD,
+    database: db_congig.DB_NAME,
+    authPlugin: db_config.DB_AUTH // Specify the authentication plugin
 })
 
 db.connect(function(err) {
