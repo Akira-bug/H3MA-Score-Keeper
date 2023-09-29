@@ -19,7 +19,7 @@ const Add = () => {
     const handleClick = async e =>{
         e.preventDefault()
         try {
-            await axios.post("http://192.168.56.11:8080/fencers", fencer)
+            await axios.post("http://52.203.255.115:8080/fencers", fencer)
             navigate("/")
         } catch(err) {
             console.log(err)
