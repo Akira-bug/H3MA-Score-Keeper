@@ -9,7 +9,7 @@ function Scoreboard() {
     const fetchData = async () => {
         try {
             // Make an Axios GET request to fetch fencers' data from the database
-            const response = await axios.get("http://52.203.255.115:8080/fencers");
+            const response = await axios.get("http://127.0.0.1:8080/fencers");
             const data = response.data;
             
             // Sort the data by score in descending order

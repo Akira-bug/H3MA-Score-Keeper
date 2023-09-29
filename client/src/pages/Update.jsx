@@ -24,7 +24,7 @@ const Update = () => {
         const confirmation = window.confirm('Are you sure you update these details?');
         if (confirmation) {
             try {
-                await axios.put("http://52.203.255.115:8080/fencers/" + fencerId, fencer)
+                await axios.put("http://127.0.0.1:8080/fencers/" + fencerId, fencer)
                 navigate("/")
             } catch(err) {
                 console.log(err)

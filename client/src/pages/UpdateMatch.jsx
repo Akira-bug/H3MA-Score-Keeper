@@ -25,7 +25,7 @@ const UpdateMatch = () => {
     // Fetch the existing match data when the component mounts
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://52.203.255.115:8080/matches/${matchId}`);
+        const response = await axios.get(`http://127.0.0.1:8080/matches/${matchId}`);
         const data = response.data;
         setMatch(data);
       } catch (err) {
@@ -45,7 +45,7 @@ const UpdateMatch = () => {
     const confirmation = window.confirm('Are you sure you want to update these match details?');
     if (confirmation) {
       try {
-        await axios.put(`http://52.203.255.115:8080/matches/${matchId}`, match);
+        await axios.put(`http://127.0.0.1:8080/matches/${matchId}`, match);
         navigate('/');
       } catch (err) {
         console.error(err);
@@ -62,7 +62,7 @@ const UpdateMatch = () => {
     const confirmation = window.confirm('Are you sure you want to delete this match?');
     if (confirmation) {
       try {
-        await axios.delete(`http://52.203.255.115:8080/matches/${matchId}`);
+        await axios.delete(`http://127.0.0.1:8080/matches/${matchId}`);
         navigate('/');
       } catch (err) {
         console.error(err);

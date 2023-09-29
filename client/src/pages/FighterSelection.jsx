@@ -11,7 +11,7 @@ function FighterSelection({ onSelectFighters }) {
     // Fetch the list of fighters from the database
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://52.203.255.115:8080/fencers');
+        const response = await axios.get('http://127.0.0.1:8080/fencers');
         const data = response.data;
         setFighters(data);
       } catch (error) {

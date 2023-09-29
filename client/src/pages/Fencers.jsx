@@ -11,7 +11,7 @@ const Fencers = () => {
     useEffect(()=>{
         const fetchAllFencers = async ()=>{
             try{
-                const res = await axios.get("http://52.203.255.115:8080/fencers")
+                const res = await axios.get("http://127.0.0.1:8080/fencers")
                 setFencers(res.data);
             }catch(err){
                 console.log(err)
@@ -24,7 +24,7 @@ const Fencers = () => {
         const confirmation = window.confirm('Are you sure you want to delete this fencer?');
         if (confirmation) {
             try {
-                await axios.delete("http://52.203.255.115:8080/fencers/"+id)
+                await axios.delete("http://127.0.0.1:8080/fencers/"+id)
                 window.location.reload()
             } catch (err) {
                 console.log(err)

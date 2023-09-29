@@ -39,7 +39,7 @@ vagrant up
 
 4. Open your web browser and in the url bar, paste the following link:
 ```
-192.168.56.11:3000
+127.0.0.1:3000
 ```
 
 <hr>

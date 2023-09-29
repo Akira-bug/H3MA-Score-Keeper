@@ -138,7 +138,7 @@ function MatchTracker() {
     })
 
     try {
-        await axios.post("http://52.203.255.115:8080/matches", matchData)
+        await axios.post("http://127.0.0.1:8080/matches", matchData)
     } catch(err) {
         console.log(err)
     }

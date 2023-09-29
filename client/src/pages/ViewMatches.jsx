@@ -9,7 +9,7 @@ function ViewMatches() {
     // Fetch the list of matches from the database
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://52.203.255.115:8080/matches');
+        const response = await axios.get('http://127.0.0.1:8080/matches');
         const data = response.data;
         setMatches(data);
       } catch (error) {
@@ -23,7 +23,7 @@ function ViewMatches() {
     // Function to trigger backup/restore
     const performBackupRestore = async () => {
         try {
-            const response = await axios.post('http://52.203.255.115:8080/backup')
+            const response = await axios.post('http://127.0.0.1:8080/backup')
             // Handle success, e.g., display a success message to the user
             console.log(response);
         } catch (error) {
