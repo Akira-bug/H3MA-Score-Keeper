@@ -102,42 +102,50 @@ This is becuase the Node server and React application are started as background 
 <hr>
 
 ### AWS Deployment
+I have deployed a public version of the software [here!](http://52.203.255.115:3000/matchtracker).
+An account system and login page are currently a work in progress, so everyone accessing the site shares the same database, and as such, the same scoreboard, fencers, matches etc.
 
 H3MA-Score-Keeper can be deployed to the AWS cloud manually by loosely following these steps:
-*Note: This guide just serves as a general outline on how I achieved my manual deployment.*
+*Note: This guide just serves as a general outline on how I achieved my manual deployment. I am definitely missing some intricate details somewhere...*
 
-1. Create an AWS account and login. 
+1. Create an AWS account, login, launch two EC2 instances. 
 
-   From the console, navigate to EC2 and launch an instance that will host the Node.js server and React application.
-   Once created, use your terminal to SSH and connect to the EC2 instance.
-   Next, you'll need to install all of the requisite dependencies of the application by following the commands used in the `react-app-provision.sh` script in the main branch. The main ones are as follows: nodejs, npm, mysql-client, git.
+   - From the console, navigate to EC2 and launch an instance that will host the front-end React application and Node.js server. Launch one additional EC2 instance that hosts the analysis functionality.
 
-2. Create a DBS.
+   - During the set up of the two EC2 instances, make sure they are part of the same VPC and security group. Once created, use your terminal to SSH and connect to the front-end host EC2 instance.
+   - Next, you'll need to install all of the requisite dependencies of the application by following the commands used in the `react-app-provision.sh` script in the main branch. The main ones are as follows: nodejs, npm, mysql-client, git.
 
-   Create a database that runs on MySQL and connect it to the EC2 instance you just created.
-   Once it's available, take note of the database's endpoint and port, and credentials. Ensure that the EC2 instance is also part of the same security group. 
+   - Finally, SSH into the analysis EC2 instance and install the requisite dependencies of the python scripts in the analysis folder by following the `analyser-provision.sh` provisioning script. These main ones are: Python3, pip, mysql-client. Using pip, install mysql-connector-python.
 
-3. Clone or fork the 'deploy' branch of this repository and update the files into the EC2 instance.
+3. Create a mysql database using RDS.
 
-   Because we are manually deploying the application on the cloud, we don't need most of the files.
-   Using the cloned deploy repo files, publish a new private repository on GitHub and modify the host address to the database endpoint, as well as fill in any credentials. I recommend using the "search" and "replace" functionality in most IDEs.
-   Update the .jsx files in the client/src/pages by changing the existing http address to the public IPv4 address of the EC2 instance.
-   Inside of your EC2 instance, create a new directory that will host the project's files.
-   Use Git to clone your custom repo into the project directory of the EC2 instance.
-   Using npm, install pm2 and serve.
+   - Create a database that runs on MySQL and connect it to the front-end app EC2 instance you just created. Once it's available, take note of the database's endpoint and port, and credentials.
+   - Ensure that the front-end EC2 instance is also part of the same security group as the database.
+   - From the fornt-end EC2 instance, use mysql to set up the database and tables. 
+
+5. Clone or fork the 'deploy' branch of this repository and update the files into the EC2 instances.
+
+   - Because we are manually deploying the application on the cloud, we don't need most of the files.
+   - Using the cloned deploy repo files, publish a new private repository on GitHub and modify the host address to the database endpoint, as well as fill in any credentials. I recommend using the "search" and "replace" functionality in most IDEs.
+   - Update the python scripts in a similar way, but from within the analysis instance.
+   - Update the .jsx files in the client/src/pages by changing the existing http address to the public IPv4 address of the front-end EC2 instance.
+   - Inside of both EC2 instances, create a new directory that will host the project's files. Use Git to clone your custom repo into the project directory of the EC2 instances.
+   - Using npm, install pm2 and serve globally on the front-end EC2.
    
-4. Install the modules.
+6. Install the Node modules on the front-end EC2.
    
-   Navigate to the backend directory in the project files and run `npm install` to download and install the dependencies. Now, use pm2 to run the Node.js server as a background process like so:
+   - Navigate to the backend directory in the project files and run `npm install` to download and install the dependencies. Now, use pm2 to run the Node.js server as a background process like so:
    ```
    sudo pm2 node index.js
    ```
-   Next, navigate to the client directory in the project files and run `npm install` then `npm build`.
-   Finally, run `sudo pm2 serve build 3000`.
-
-5. Should be good!
-   
-   Although this set up is relatively lightweight, be sure to keep an eye on your accounts and set up cost management to avoid incurring high fees.
+   - Next, navigate to the client directory in the project files and run `npm install` then `npm build`. Run `sudo pm2 serve build 3000`.
+   - Finally, run `pm2 startup` and `pm2 save` to save the configuration and have the application run whenever the instance starts up again.
+   - To access the web application, use the public IPv4 address and append the port that the front end is hosted on, 3000.
+     
+7. Should be good!
+   - At this point, I recommend securing an static public IPv4 address using an Elastic IP for your front-end application instance, as this saves you from having to adjust the addresses all files whenever the instance restarts or updates.
+   - I also set up an S3 bucket to store backups of the repository files. One could also look into using the Amplify service to host the application.
+   - Although this set up is relatively lightweight, be sure to keep an eye on your accounts and set up cost management to avoid incurring high fees.
    
 <hr>
 
