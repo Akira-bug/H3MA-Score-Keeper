@@ -11,13 +11,15 @@ import MatchTracker from "./pages/MatchTracker";
 import "./style.css"
 import ViewMatches from "./pages/ViewMatches";
 import UpdateMatch from "./pages/UpdateMatch";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Scoreboard/>}/>
+          <Route path="/" element={<MatchTracker/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="/matchtracker" element={<MatchTracker/>}/>
           <Route path="/fencers" element={<Fencers/>}/>
           <Route path="/add" element={<Add/>}/>
