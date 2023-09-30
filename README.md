@@ -101,5 +101,44 @@ This is becuase the Node server and React application are started as background 
 </p>
 
 <hr>
+
+### AWS Deployment
+H3MA-Score-Keeper can be deployed to the AWS cloud manually by loosely following these steps:
+*Note: This guide just serves as a general outline on how I achieved my manual deployment.*
+
+1. Create an AWS account and login. 
+
+   From the console, navigate to EC2 and launch an instance that will host the Node.js server and React application.
+   Once created, use your terminal to SSH and connect to the EC2 instance.
+   Next, you'll need to install all of the requisite dependencies of the application by following the commands used in the `react-app-provision.sh` script in the main branch. The main ones are as follows: nodejs, npm, mysql-client, git.
+
+2. Create a DBS.
+
+   Create a database that runs on MySQL and connect it to the EC2 instance you just created.
+   Once it's available, take note of the database's endpoint and port, and credentials. Ensure that the EC2 instance is also part of the same security group. 
+
+3. Clone or fork the 'deploy' branch of this repository and update the files into the EC2 instance.
+
+   Because we are manually deploying the application on the cloud, we don't need most of the files.
+   Using the cloned deploy repo files, publish a new private repository on GitHub and modify the host address to the database endpoint, as well as fill in any credentials. I recommend using the "search" and "replace" functionality in most IDEs.
+   Update the .jsx files in the client/src/pages by changing the existing http address to the public IPv4 address of the EC2 instance.
+   Inside of your EC2 instance, create a new directory that will host the project's files.
+   Use Git to clone your custom repo into the project directory of the EC2 instance.
+   Using npm, install pm2 and serve.
+   
+4. Install the modules.
+   
+   Navigate to the backend directory in the project files and run `npm install` to download and install the dependencies. Now, use pm2 to run the Node.js server as a background process like so:
+   ```
+   sudo pm2 node index.js
+   ```
+   Next, navigate to the client directory in the project files and run `npm install` then `npm build`.
+   Finally, run `sudo pm2 serve build 3000`.
+
+5. Should be good!
+   
+   Although this set up is relatively lightweight, be sure to keep an eye on your accounts and set up cost management to avoid incurring high fees.
+
+<hr>
 Initial set up of this project follows the development process from the COSC349 [vagrant-multivm](https://altitude.otago.ac.nz/cosc349/vagrant-multivm) repository on GitLab by David Eyers.
 ChatGPT-3.5 used to make parts of this project.
